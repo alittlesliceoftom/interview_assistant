@@ -9,16 +9,16 @@ def hello():
     return "Hello World!"
 
 
-class Questions:
+class Questions():
     """
 
     """
     def __init__(self):
-        self.questions = self.get_questions()
+        self.questions = None
 
-    @staticmethod
-    def get_questions():
-        qs = json.load(open("questions.json", 'r'))
+    def get_questions(self, filename='questions.json'):
+        qs = json.load(open(filename, 'r'))
+        self.questions = qs
         return qs
 
     def ask_question(self, question=None):
@@ -34,20 +34,22 @@ class Questions:
         print(key)
         q = self.questions[key]
         print(q)
-        ans = input(q['question'])
+        ans = input(q['Question'])
         return ans
 
-class InterviewQuestions():
-    
 
 if __name__ == '__main__':
     ###Section 1 get input data from the user
-    q = Questions
-    print(q.Questions)
-    ans = q.ask_question()
+    userQuestions = Questions()
+    userQuestions.get_questions()
+    print(userQuestions.questions)
+    ans = userQuestions.ask_question()
     print(ans)
 
     ##Section 2, show questions to the user for them to choose from, retain selections.
-
-
+    interviewQuestions = Questions()
+    interviewQuestions.get_questions(filename='interview_questions.json')
+    for k, v in interviewQuestions.questions.items():
+        print("The questions is: " + v['Question'])
+        print("The answer is: " + str(v['Answer']) )
     ##Section 3, output to the user a PDF to interview the person with.
